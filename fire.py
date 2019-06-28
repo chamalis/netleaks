@@ -258,9 +258,8 @@ def udp_scan_quick(target, tgtdir):
     xml_path = os.path.join(tgtdir, 'udp.xml')
     txt_path = os.path.join(tgtdir, 'udp.nmap')
 
-    if not conf_handler.skip_nmap:
-        cmd = NMAP_UDP_QUICK.format(xml_path, txt_path, target)
-        _exec(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    cmd = NMAP_UDP_QUICK.format(xml_path, txt_path, target)
+    _exec(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     report = NmapParser.parse_fromfile(xml_path)
     if not report.hosts:
@@ -304,7 +303,7 @@ def tcp_scan(target, tgtdir):
     if not conf_handler.skip_nmap:
         cmd = NMAP_TCP_PORTS.format(target)
         ports = os.popen(cmd).read()
-        print("##### Host {0} has open ports: {1} #####".format(target, ports))
+        print("##### Host {0} has open TCP ports: {1} #####".format(target, ports))
         cmd = NMAP_TCP_SCAN.format(ports, xml_path, txt_path, target)
         _exec(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
